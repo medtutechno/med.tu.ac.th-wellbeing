@@ -1,0 +1,44 @@
+:root {
+  /* Primary Colors */
+  --primary-dark: #1a237e;
+  --primary-light: #283593;
+  --primary: #1a237e;
+  --btn-primary: #1a237e;
+  --btn-primary-hover: #283593;
+  --btn-primary-active: #1a237e;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(to right, var(--primary-dark), var(--primary-light));
+  --gradient-sidebar: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+  
+  /* Background Colors */
+  --bg-light: rgba(26, 35, 126, 0.1);
+  --bg-hover: rgba(255, 255, 255, 0.15);
+  
+  /* Text Colors */
+  --text-primary: var(--primary-dark);
+  --text-light: rgba(255, 255, 255, 0.8);
+  --text-white: #ffffff;
+  
+  /* Border Colors */
+  --border-primary: var(--primary-dark);
+  
+  /* Shadow Colors */
+  --shadow-primary: rgba(26, 35, 126, 0.2);
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-default: all 0.3s ease;
+  
+  /* Spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+}

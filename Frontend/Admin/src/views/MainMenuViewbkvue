@@ -1,0 +1,417 @@
+<template>
+  <!-- <div class="main-menu"> -->
+
+    <div class="main-menu" :style="{ backgroundImage: `url(${require('@/assets/mental-health.png')})` }">
+    <div class="area">
+      <ul class="circles">
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+        <li><i class="fas fa-heart"></i></li>
+      </ul>
+    </div>
+    <div class="main-menu-container">
+      <div class="menu-grid">
+        <div class="header-section">
+          <h1>ประเมินสุขภาพใจ<span>ตัวเอง</span></h1>
+          <div class="header-image">
+            <img src="@/assets/mental-health.png" alt="Mental Health" />
+          </div>
+          <p class="description">
+            แบบประเมินนี้จะช่วยประเมินอารมณ์ซึมเศร้า วิตกกังวล และความเครียด เบื้องต้น 
+            ใช้เวลาทำประมาณ 5-10 นาที เมื่อทำเสร็จแล้ว นักศึกษาจะได้ทราบว่าตนเองมีภาวะต่างๆ
+            อยู่ในระดับใด พร้อมคำแนะนำเพื่อนำไปใช้ดูแลตัวเองเบื้องต้น
+          </p>
+        </div>
+        <router-link to="/assessment" class="menu-item purple">
+          <div class="icon-container">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div class="menu-text">
+            แบบประเมินสุขภาพจิต
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+        </router-link>
+
+        <router-link to="/blog" class="menu-item blue">
+          <div class="icon-container">
+            <i class="fas fa-book-reader"></i>
+          </div>
+          <div class="menu-text">
+            บทความที่น่าสนใจสุขภาพจิต
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+        </router-link>
+
+        <!-- <router-link to="/day-booking" class="menu-item pink">
+          <div class="icon-container">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="menu-text">
+            จองคิวรับคำปรึกษาจิตวิทยา
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+        </router-link> -->
+
+        <router-link to="/contact" class="menu-item orange">
+          <div class="icon-container">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div class="menu-text">
+            ข้อมูลติดต่อ
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MainMenuView'
+}
+</script>
+
+<style scoped>
+.main-menu {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* ใช้ min-height แทน height */
+  position: relative; /* เพิ่ม position relative */
+  overflow: auto; /* เปลี่ยนจาก hidden เป็น auto */
+}
+
+.main-menu-container {
+  /* padding: 1rem; */
+  /* min-height: 100vh;  ใช้ min-height แทน height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* เพิ่ม position relative */
+  z-index: 1; /* ให้อยู่ด้านบนของ background */
+}
+
+.menu-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width:600px;
+  padding: 0 ;
+  margin: 1rem 0; /* เพิ่ม margin เพื่อให้มีพื้นที่สำหรับ scroll */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 15px;
+  text-decoration: none;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-height: 60px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Add some scaling animation on hover */
+.menu-item:hover {
+  transform: translateX(5px) translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.icon-container {
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover .icon-container {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.icon-container i {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 0.3px;
+}
+
+.arrow {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover .arrow {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+.purple {
+  background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%);
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+}
+
+.blue {
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.pink {
+  background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%);
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+.orange {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive Design */
+@media (max-height: 800px) {
+  .header-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .menu-item {
+    padding: 0.8rem;
+    min-height: 50px;
+  }
+
+  .icon-container {
+    width: 35px;
+    height: 35px;
+  }
+
+  .menu-text {
+    font-size: 1rem;
+  }
+
+  .menu-grid {
+    margin: 1rem 0;
+  }
+}
+
+@media (max-height: 600px) {
+  .header-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .description {
+    display: none; /* ซ่อนคำอธิบายในหน้าจอที่เตี้ยมาก */
+  }
+
+  .menu-grid {
+    margin: 0.5rem 0;
+  }
+}
+
+.area {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+}
+
+.circles li i {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 20px;
+}
+
+/* สีพาสเทลสำหรับหัวใจแต่ละอัน */
+.circles li:nth-child(1) i { color: rgba(255, 182, 193, 0.6); font-size: 40px; }
+.circles li:nth-child(2) i { color: rgba(173, 216, 230, 0.6); font-size: 20px; }
+.circles li:nth-child(3) i { color: rgba(255, 218, 185, 0.6); font-size: 25px; }
+.circles li:nth-child(4) i { color: rgba(221, 160, 221, 0.6); font-size: 35px; }
+.circles li:nth-child(5) i { color: rgba(176, 224, 230, 0.6); font-size: 22px; }
+.circles li:nth-child(6) i { color: rgba(255, 192, 203, 0.6); font-size: 45px; }
+.circles li:nth-child(7) i { color: rgba(230, 190, 255, 0.6); font-size: 50px; }
+.circles li:nth-child(8) i { color: rgba(255, 253, 150, 0.6); font-size: 25px; }
+.circles li:nth-child(9) i { color: rgba(176, 224, 200, 0.6); font-size: 20px; }
+.circles li:nth-child(10) i { color: rgba(255, 182, 193, 0.6); font-size: 48px; }
+
+/* ตำแหน่งและการเคลื่อนไหวของแต่ละหัวใจ */
+.circles li:nth-child(1) { left: 25%; animation-delay: 0s; }
+.circles li:nth-child(2) { left: 10%; animation-delay: 2s; animation-duration: 12s; }
+.circles li:nth-child(3) { left: 70%; animation-delay: 4s; }
+.circles li:nth-child(4) { left: 40%; animation-delay: 0s; animation-duration: 18s; }
+.circles li:nth-child(5) { left: 65%; animation-delay: 0s; }
+.circles li:nth-child(6) { left: 75%; animation-delay: 3s; }
+.circles li:nth-child(7) { left: 35%; animation-delay: 7s; }
+.circles li:nth-child(8) { left: 50%; animation-delay: 15s; animation-duration: 45s; }
+.circles li:nth-child(9) { left: 20%; animation-delay: 2s; animation-duration: 35s; }
+.circles li:nth-child(10) { left: 85%; animation-delay: 0s; animation-duration: 11s; }
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 1rem; /* ลด margin */
+  /* padding: 1.5rem; */
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #4A5568;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+h1 span {
+  color: #28BF7E;
+  display: inline-block;
+  position: relative;
+}
+
+h1 span::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #28BF7E, #28BF7E);
+  border-radius: 2px;
+}
+
+.header-image {
+  margin: 1rem auto; /* ลด margin */
+  width: 150px; /* ลดขนาดรูป */
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.15);
+}
+
+.header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.header-image:hover img {
+  transform: scale(1.05);
+}
+
+.description {
+  color: #4A5568;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 1rem auto; /* ลด margin */
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-section {
+    padding: 1rem;
+    /* margin-top: 3rem; */
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .header-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Background gradient overlay */
+/* .main-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  z-index: 0;
+}
+
+.main-menu-container {
+  position: relative;
+  z-index: 1;
+} */
+</style>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการหมวดหมู่บทความ</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app" class="container py-4">
+        <h2 class="mb-4">จัดการหมวดหมู่บทความ</h2>
+
+        <!-- Form for adding/editing category -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ isEditing ? 'แก้ไขหมวดหมู่' : 'เพิ่มหมวดหมู่ใหม่' }}</h5>
+                <form @submit.prevent="submitForm">
+                    <div class="mb-3">
+                        <label class="form-label">ชื่อหมวดหมู่</label>
+                        <input type="text" class="form-control" v-model="form.name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">คำอธิบาย</label>
+                        <textarea class="form-control" v-model="form.description" rows="3"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">{{ isEditing ? 'บันทึกการแก้ไข' : 'เพิ่มหมวดหมู่' }}</button>
+                        <button v-if="isEditing" type="button" class="btn btn-secondary ms-2" @click="cancelEdit">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Categories Table -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">รายการหมวดหมู่</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>ชื่อหมวดหมู่</th>
+                                <th>คำอธิบาย</th>
+                                <th>การจัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(category, index) in categories" :key="category.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ category.name }}</td>
+                                <td>{{ category.description }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm me-2" @click="editCategory(category)">แก้ไข</button>
+                                    <button class="btn btn-danger btn-sm" @click="deleteCategory(category.id)">ลบ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        import { config } from './src/config.js'
+
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    categories: [],
+                    form: {
+                        name: '',
+                        description: ''
+                    },
+                    isEditing: false,
+                    editingId: null
+                }
+            },
+            methods: {
+                // ดึงข้อมูลหมวดหมู่ทั้งหมด
+                async fetchCategories() {
+                    try {
+                        const response = await axios.get(`${config.API_URL}/blog_category`)
+                        this.categories = response.data
+                    } catch (error) {
+                        console.error('Error fetching categories:', error)
+                        alert('ไม่สามารถดึงข้อมูลหมวดหมู่ได้')
+                    }
+                },
+                // ส่งฟอร์มเพิ่ม/แก้ไขหมวดหมู่
+                async submitForm() {
+                    try {
+                        if (this.isEditing) {
+                            await axios.put(`${config.API_URL}/blog_category/${this.editingId}`, this.form)
+                            alert('แก้ไขหมวดหมู่เรียบร้อย')
+                        } else {
+                            await axios.post(`${config.API_URL}/blog_category`, this.form)
+                            alert('เพิ่มหมวดหมู่เรียบร้อย')
+                        }
+                        this.resetForm()
+                        this.fetchCategories()
+                    } catch (error) {
+                        console.error('Error submitting form:', error)
+                        alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+                    }
+                },
+                // เริ่มการแก้ไขหมวดหมู่
+                editCategory(category) {
+                    this.isEditing = true
+                    this.editingId = category.id
+                    this.form.name = category.name
+                    this.form.description = category.description
+                },
+                // ยกเลิกการแก้ไข
+                cancelEdit() {
+                    this.resetForm()
+                },
+                // รีเซ็ตฟอร์ม
+                resetForm() {
+                    this.form.name = ''
+                    this.form.description = ''
+                    this.isEditing = false
+                    this.editingId = null
+                },
+                // ลบหมวดหมู่
+                async deleteCategory(id) {
+                    if (confirm('คุณต้องการลบหมวดหมู่นี้ใช่หรือไม่?')) {
+                        try {
+                            await axios.delete(`${config.API_URL}/blog_category/${id}`)
+                            alert('ลบหมวดหมู่เรียบร้อย')
+                            this.fetchCategories()
+                        } catch (error) {
+                            console.error('Error deleting category:', error)
+                            alert('ไม่สามารถลบหมวดหมู่ได้')
+                        }
+                    }
+                }
+            },
+            mounted() {
+                this.fetchCategories()
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

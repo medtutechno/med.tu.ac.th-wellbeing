@@ -1,0 +1,6 @@
+projectKey=https:-med.tu.ac.th-wellbeing
+serverUrl=http://localhost:9000
+serverVersion=25.5.0.107428
+dashboardUrl=http://localhost:9000/dashboard?id=https%3A-med.tu.ac.th-wellbeing
+ceTaskId=46285379-c914-4162-95bd-67fe8b20bdfe
+ceTaskUrl=http://localhost:9000/api/ce/task?id=46285379-c914-4162-95bd-67fe8b20bdfe
